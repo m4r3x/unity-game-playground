@@ -34,5 +34,13 @@ namespace Tests
             Assert.That(playerObject, Is.Not.Null);
             Assert.That(gameManagerObject, Is.Not.Null);
         }
+        
+        [Test, Performance]
+        public void TestMemoryUsage()
+        {
+            SampleGroup samplegroup = new SampleGroup("TotalAllocatedMemory", SampleUnit.Megabyte, false);
+            var allocatedMemory = UnityEngine.Profiling.Profiler.GetTotalAllocatedMemoryLong() / 1048576f;
+            Measure.Custom(samplegroup, allocatedMemory);
+        }
     }
 }

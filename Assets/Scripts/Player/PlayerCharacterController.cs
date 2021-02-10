@@ -245,6 +245,7 @@ public class PlayerCharacterController : MonoBehaviour
             if (!isStanding)
             {
                 animator.runtimeAnimatorController = Resources.Load("Standing") as RuntimeAnimatorController;
+                body.transform.localEulerAngles = Vector3.zero;
                 isStanding = true;
             }
 
