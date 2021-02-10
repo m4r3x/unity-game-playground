@@ -7,6 +7,7 @@ public class Actor : MonoBehaviour
     [Tooltip("Represents the team of actor")]
     public int affiliation;
     ActorsManager actorsManager;
+    int score;
 
     private void Start()
     {

@@ -9,37 +9,30 @@ public class WeaponController : MonoBehaviour
     [Header("Bullet options")]
     [Tooltip("Tip of the weapon, where the projectiles are shot")]
     public Transform weaponMuzzle;
-    
     [Header("Shoot Parameters")]
     [Tooltip("The projectile prefab")]
     public WeaponBullet bulletPrefab;
-    [Tooltip("Minimum duration between two shots")]
-    public float delayBetweenShots = 5f;
     [Tooltip("Ratio of the default FOV that this weapon applies while aiming")]
     [Range(0f, 1f)]
-    public float aimZoomRatio = 1f;
     public UnityAction onShoot;
-    public event Action OnShootProcessed;
     public GameObject owner { get; set; }
-    // sourcePrefab of given weapon
+    // GameObject of attached weapon. Coming from PlayerWeaponManager.
     public GameObject sourcePrefab { get; set; }
-    float m_LastTimeShot = Mathf.NegativeInfinity;
+    float lastTimeShot = Mathf.NegativeInfinity;
+    const float ShotsInterval = 1.5f;
 
     public bool HandleShootInputs(bool inputDown)
     {
-        if (inputDown)
-        {
-            return TryShoot();
-        }
+        if (inputDown) return TryShoot();
+
         return false;
     }
     
     bool TryShoot()
     {
-        if (m_LastTimeShot + delayBetweenShots < Time.time)
+        if (lastTimeShot + ShotsInterval < Time.time)
         {
             HandleShoot();
-
             return true;
         }
 
@@ -51,15 +44,8 @@ public class WeaponController : MonoBehaviour
         Vector3 shotDirection = GetShotDirection(weaponMuzzle);
         WeaponBullet newBullet = Instantiate(bulletPrefab, weaponMuzzle.position, Quaternion.LookRotation(shotDirection));
         newBullet.Shoot(this);
-        m_LastTimeShot = Time.time;
-
-        // Callback on shoot
-        if (onShoot != null)
-        {
-            onShoot();
-        }
-
-        OnShootProcessed?.Invoke();
+        lastTimeShot = Time.time;
+        if (onShoot != null) onShoot();
     }
     
     public Vector3 GetShotDirection(Transform shootTransform)

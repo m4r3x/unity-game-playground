@@ -51,7 +51,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 3072
   tip: {fileID: 1135791333161367127}
-  speed: 75
+  speed: 150
   damage: 50
 --- !u!1 &5564024855854763701
 GameObject:

@@ -9,7 +9,7 @@ public class WeaponBullet : MonoBehaviour
     [Tooltip("Radius of this projectile's collision detection")]
     public float radius = 0.01f;
     [Tooltip("Transform representing the root of the projectile (used for accurate collision detection)")]
-    public float maxLifeTime = 3f;
+    public float maxLifeTime = 2.5f;
     [Tooltip("Layers this projectile can collide with")]
     public LayerMask hittableLayers = -1;
     [Tooltip("Transform representing the tip of the projectile (used for accurate collision detection)")]
@@ -23,16 +23,13 @@ public class WeaponBullet : MonoBehaviour
     [Tooltip("Damage of the projectile")]
     public float damage = 100f;
     public GameObject owner { get; private set; }
-    // Position of bullet in last update
-    Vector3 m_LastRootPosition;
     public Vector3 initialPosition { get; private set; }
     public Vector3 initialDirection { get; private set; }
-    public float initialCharge { get; private set; }
     public UnityAction onShoot;
-    Vector3 m_Velocity;
-    List<Collider> m_IgnoredColliders;
-    private PlayerWeaponsManager playerWeaponsManager;
-    const QueryTriggerInteraction k_TriggerInteraction = QueryTriggerInteraction.Collide;
+    Vector3 lastBulletPosition;
+    Vector3 bulletVelocity;
+    List<Collider> bulletIgnoredColliders;
+    PlayerWeaponsManager playerWeaponsManager;
     
     private void OnEnable()
     {
@@ -48,61 +45,50 @@ public class WeaponBullet : MonoBehaviour
         initialDirection = transform.forward;
 
         if (onShoot != null)
-        {
             onShoot.Invoke();
-        }
     }
     
     void OnShoot()
     {
-        m_LastRootPosition = transform.position;
-        m_Velocity = transform.forward * speed;
+        lastBulletPosition = transform.position;
+        bulletVelocity = transform.forward * speed;
         
-        m_IgnoredColliders = new List<Collider>();
-        
-        // Ignore colliders of owner (prevent self shooting)
+        // Ignore colliders of owner (prevent shooting same team or trees/terrain)
+        bulletIgnoredColliders = new List<Collider>();
         Collider[] ownerColliders = owner.GetComponentsInChildren<Collider>();
-        m_IgnoredColliders.AddRange(ownerColliders);
-
+        bulletIgnoredColliders.AddRange(ownerColliders);
     }
     
     void Update()
     {
-        // Move
         // We ignore Gravity for simplicity.
-        transform.position += m_Velocity * Time.deltaTime;
+        transform.position += bulletVelocity * Time.deltaTime;
   
         // Hit detection
-        Vector3 displacementSinceLastFrame = tip.position - m_LastRootPosition;
-        RaycastHit[] hits = Physics.SphereCastAll(m_LastRootPosition, radius, displacementSinceLastFrame.normalized, displacementSinceLastFrame.magnitude, hittableLayers, k_TriggerInteraction);
+        Vector3 displacementSinceLastFrame = tip.position - lastBulletPosition;
+        RaycastHit[] hits = Physics.SphereCastAll(lastBulletPosition, radius, displacementSinceLastFrame.normalized, displacementSinceLastFrame.magnitude, hittableLayers, QueryTriggerInteraction.Collide);
         foreach (var hit in hits)
         {
             if (IsHitValid(hit)) OnHit(hit.point, hit.normal, hit.collider);
         }
-        m_LastRootPosition = transform.position;
+        lastBulletPosition = transform.position;
     }
     
     bool IsHitValid(RaycastHit hit)
     {
         // ignore hits with specific ignored colliders (self colliders, trees etc)
-        if (m_IgnoredColliders != null && m_IgnoredColliders.Contains(hit.collider))
-        {
+        if (bulletIgnoredColliders != null && bulletIgnoredColliders.Contains(hit.collider))
             return false;
-        }
         
         return true;
     }
 
     void OnHit(Vector3 point, Vector3 normal, Collider collider)
     {
-        // inflict damage if target can recieve one
         ActorDamageable damageable = collider.GetComponent<ActorDamageable>();
         if (damageable)
-        {
             damageable.InflictDamage(damage, owner);
-        }
         
-        // Self Destruct
         Destroy(this.gameObject);
     }
 }

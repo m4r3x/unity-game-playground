@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class DummyPlayerController : MonoBehaviour
 {
+    [Tooltip("Reference to the body used by this Dummy Player")]
+    public GameObject body;
     Actor actor;
     ActorHealth actorHealth;
 
@@ -16,10 +18,16 @@ public class DummyPlayerController : MonoBehaviour
         DebugUtility.HandleErrorIfNullGetComponent<Actor, PlayerCharacterController>(actor, this, gameObject);
 
         actorHealth.onDie += OnDie;
+        actorHealth.onRevive += OnRevive;
     }
 
     void OnDie()
     {
-        Destroy(this.gameObject);
+		body.SetActive(false);
+    }
+
+    void OnRevive()
+    {
+        body.SetActive(true);
     }
 }

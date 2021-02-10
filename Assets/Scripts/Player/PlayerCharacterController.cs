@@ -8,6 +8,8 @@ public class PlayerCharacterController : MonoBehaviour
     [Header("References")]
     [Tooltip("Reference to the main camera used for the player")]
     public Camera playerCamera;
+    [Tooltip("Reference to the body used by this Player")]
+    public GameObject body;
     [Header("General")]
     [Tooltip("Force applied downward when in the air")]
     public float gravityDownForce = 20f;
@@ -96,6 +98,7 @@ public class PlayerCharacterController : MonoBehaviour
         
         // Register onDie action and call initial obstruction calculation.
         actorHealth.onDie += OnDie;
+        actorHealth.onRevive += OnRevive;
         animator.runtimeAnimatorController = Resources.Load("Standing") as RuntimeAnimatorController;
     }
 
@@ -115,7 +118,12 @@ public class PlayerCharacterController : MonoBehaviour
 
     void OnDie()
     {
-        Destroy(this.gameObject);
+        body.SetActive(false);
+    }
+
+    void OnRevive()
+    {
+        body.SetActive(true);
     }
 
     void GroundCheck()
