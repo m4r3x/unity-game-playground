@@ -1,6 +1,5 @@
 # unity-game-playground
-Sample project (almost a "game"!) created within week inside Unity.
-Repository is pretty massive since it contains plenty of unecessary assets or build.
+Sample project (almost a "game") created within week inside Unity.
 
 ## Development
 
