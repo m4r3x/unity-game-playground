@@ -21,7 +21,7 @@ public class GameFramerateCounter : MonoBehaviour
         if (accDelta >= pollingTime)
         {
             int framerate = Mathf.RoundToInt((float)accFrames / accDelta);
-            uiText.text = framerate.ToString();
+            uiText.text = "fps: " + framerate.ToString();
 
             accDelta = 0f;
             accFrames = 0;

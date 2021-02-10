@@ -33,10 +33,10 @@ public class ActorHealth : MonoBehaviour
     {
         if (invincible) return;
         currentHealth -= damage;
-        HandleDeath();
+        HandleDeath(damageSource);
     }
     
-    void HandleDeath()
+    void HandleDeath(GameObject damageSource)
     {
         if (isDead) return;
 
@@ -45,6 +45,8 @@ public class ActorHealth : MonoBehaviour
             // Set reviverPolling to zero, to ensure Actor will be revived in ReviverTimer interval via Update method.
             reviverPolling = 0f;
           	isDead = true;
+            Actor actor = damageSource.GetComponent<Actor>();
+            actor.IncreaseScore();
             if (onDie != null) onDie.Invoke();
         }
     }
