@@ -1,9 +1,8 @@
 # unity-game-playground
-Sample project (almost a "game") created within week inside Unity. Repository consits of two branches:
-- master
-- photonless
+Sample project (almost a "game") created in 4 days inside Unity.
 
-On master there's attempt to implement a working multiplayer aspect of the game. While photonless has a significant less build size (resulting in faster game load & better fps).
+On master there's attempt to implement a working multiplayer aspect of the game.
+While photonless branch has a significant less build size (resulting in faster game load & better fps).
 
 ## Development
 
@@ -35,10 +34,10 @@ pm2 start $(which http-server) --name unity-game-playground -- --port 8080 -d fa
 
 ## Example
 
-Please visit this website: http://51.77.59.187:8881 (for the latest photon-less version of the game)
-Or http://51.77.59.187:8882 for the latest multiplayer version of game.
+Latest singleplayer version: http://51.77.59.187:8881
+
+Latest multiplayer: http://51.77.59.187:8882
 
 Game hosted on above links might be outdated, since I won't update it regulary (or it also might be down! :D)
 
-I
 
