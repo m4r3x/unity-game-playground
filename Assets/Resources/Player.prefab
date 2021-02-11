@@ -510,6 +510,7 @@ MonoBehaviour:
   - {fileID: 8180586883133203543}
   localObjects:
   - {fileID: 8179205242467664320}
+  - {fileID: 8180586881179592271}
 --- !u!1001 &8180586881843592710
 PrefabInstance:
   m_ObjectHideFlags: 0
