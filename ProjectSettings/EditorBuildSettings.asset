@@ -8,4 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainScene.unity
     guid: 0c028a522196c46ea9f3a124c413a5a3
+  - enabled: 1
+    path: Assets/Scenes/WaitScene.unity
+    guid: d5460374e3d57465784f994073f79324
   m_configObjects: {}

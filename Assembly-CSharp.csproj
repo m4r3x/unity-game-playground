@@ -117,7 +117,9 @@
      <Compile Include="Assets\Scripts\GameConstants.cs" />
      <Compile Include="Assets\Scripts\GameDebugUtility.cs" />
      <Compile Include="Assets\Scripts\GameFramerateCounter.cs" />
-     <Compile Include="Assets\Scripts\GameMultiplayerLauncher.cs" />
+     <Compile Include="Assets\Scripts\Networking\GameMultiplayerLauncher.cs" />
+     <Compile Include="Assets\Scripts\Networking\PlayerSync.cs" />
+     <Compile Include="Assets\Scripts\Networking\SceneSync.cs" />
      <Compile Include="Assets\Scripts\Player\DummyPlayerController.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerCharacterController.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerHandler.cs" />
