@@ -35,6 +35,10 @@ pm2 start $(which http-server) --name unity-game-playground -- --port 8080 -d fa
 
 ## Example
 
-Please visit this website: http://51.77.59.187:8881
-Game might be outdated there, since I won't update it regulary (or it also might be down! :D)
+Please visit this website: http://51.77.59.187:8881 (for the latest photon-less version of the game)
+Or http://51.77.59.187:8882 for the latest multiplayer version of game.
+
+Game hosted on above links might be outdated, since I won't update it regulary (or it also might be down! :D)
+
+I
 
