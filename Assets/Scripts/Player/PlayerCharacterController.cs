@@ -123,6 +123,8 @@ public class PlayerCharacterController : MonoBehaviour
         body.SetActive(true);
     }
 
+    // Kudos for https://learn.unity.com/project/fps-template for helping me with writing
+    // logic for slope and ground detection.
     void GroundCheck()
     {
         // Make sure that the ground check distance while already in air is very small, to prevent suddenly snapping to ground
