@@ -62,7 +62,6 @@ public class PlayerCharacterController : MonoBehaviour
     CharacterController characterController;
     PlayerWeaponsManager playerWeaponsManager;
     Animator animator;
-    Actor actor;
     ActorHealth actorHealth;
     Vector3 groundVector;
     float lastTimeJumped = 0f;
@@ -81,7 +80,6 @@ public class PlayerCharacterController : MonoBehaviour
         playerHandler = GetComponent<PlayerHandler>();
         playerWeaponsManager = GetComponent<PlayerWeaponsManager>();
         actorHealth = GetComponent<ActorHealth>();
-        actor = GetComponent<Actor>();
         animator = GetComponentInChildren<Animator>();
 
         // Register error handlers for components for Debug
@@ -89,7 +87,6 @@ public class PlayerCharacterController : MonoBehaviour
         DebugUtility.HandleErrorIfNullGetComponent<PlayerHandler, PlayerCharacterController>(playerHandler, this, gameObject);
         DebugUtility.HandleErrorIfNullGetComponent<PlayerWeaponsManager, PlayerCharacterController>(playerWeaponsManager, this, gameObject);
         DebugUtility.HandleErrorIfNullGetComponent<ActorHealth, PlayerCharacterController>(actorHealth, this, gameObject);
-        DebugUtility.HandleErrorIfNullGetComponent<Actor, PlayerCharacterController>(actor, this, gameObject);
 
         // Tweak some values inside character to match parameters from config.
         characterController.enableOverlapRecovery = true;

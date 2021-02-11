@@ -11,7 +11,6 @@ public class ActorDamageable : MonoBehaviour
         actorHealth = GetComponent<ActorHealth>();
         // if not found, check deeper
         if (!actorHealth)  actorHealth = GetComponentInParent<ActorHealth>();
-        DebugUtility.HandleErrorIfNullFindObject<ActorHealth, Actor>(actorHealth, this);
     }
 
     public void InflictDamage(float damage, GameObject damageOwner)

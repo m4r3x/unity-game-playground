@@ -36,7 +36,6 @@ public class PlayerSync : MonoBehaviourPun, IPunObservable
     
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
-        
         if (stream.IsWriting)
             stream.SendNext(transform.position); // Send others our data.
         else 
