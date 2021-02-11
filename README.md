@@ -1,10 +1,8 @@
 # unity-game-playground
-Sample project (almost a "game") created within week inside Unity. Repository consits of two branches:
-- master
-- photonless
+Sample project (almost a "game") created in 4 days inside Unity.
 
 On master there's attempt to implement a working multiplayer aspect of the game.
-While photonless has a significant less build size (resulting in faster game load & better fps).
+While photonless branch has a significant less build size (resulting in faster game load & better fps).
 
 ## Development
 
