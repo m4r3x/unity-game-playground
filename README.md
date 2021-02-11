@@ -3,7 +3,7 @@ Sample project (almost a "game") created within week inside Unity. Repository co
 - master
 - photonless
 
-On master there's existing attempt to implement a working multiplayer aspect of the game. While photonless has a significant less build size (resulting in faster game load, better fps etc.).
+On master there's attempt to implement a working multiplayer aspect of the game. While photonless has a significant less build size (resulting in faster game load & better fps).
 
 ## Development
 
