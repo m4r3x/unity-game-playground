@@ -9,7 +9,7 @@ Made with Unity in version 2019.4 - please use that one or higher.
 ## Build & Running
 
 Build with WebGL inside Unity. Or just use what's inside *Build* directory in this repository.
-Once you decide to run the game, you need to host via server of some sort, it then visit using WebGL supporting browser (ie. Chrome). 
+Once you decide to run the game, you need to host via server of some sort, then visit using client that has WebGL supporting (ie. Chrome). 
 
 It can be done using ie. "http-server":
 
