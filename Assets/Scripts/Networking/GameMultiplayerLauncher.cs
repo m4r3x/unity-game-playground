@@ -67,14 +67,14 @@ public class GameMultiplayerLauncher : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-        Debug.Log("OnJoinedRoom() called by PUN. Now this client is in a room.");
+        Debug.Log("OnJoinedRoom()");
+        PhotonNetwork.NickName = "Player #" + Random.Range(0.0f, 100.0f);
+        Debug.Log("Nickname: " + PhotonNetwork.NickName);
+        PhotonNetwork.LoadLevel("MainScene");
     }
     
     public override void OnCreatedRoom()
     {
-        PhotonNetwork.NickName = "Player #" + Random.Range(0.0f, 100.0f);
-        Debug.Log("OnCreatedRoom");
-        Debug.Log("Nickname: " + PhotonNetwork.NickName);
-        PhotonNetwork.LoadLevel("MainScene");
+        Debug.Log("OnCreatedRoom()");
     }
 }
