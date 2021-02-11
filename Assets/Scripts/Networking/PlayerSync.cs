@@ -10,7 +10,8 @@ public class PlayerSync : MonoBehaviourPun, IPunObservable
     //List of the GameObjects that should only be active for the local player (ex. Camera, WeaponSocket)
     public GameObject[] localObjects;
     //Values that will be synced over network
-    Vector3 latestPos;
+    Vector3 lastPosition;
+    Quaternion lastRotation;
     
     void Start()
     {
@@ -31,14 +32,25 @@ public class PlayerSync : MonoBehaviourPun, IPunObservable
     void Update()
     {
         if (!photonView.IsMine)
-            transform.position = Vector3.Lerp(transform.position, latestPos, Time.deltaTime * 5);
+        {
+            transform.position = Vector3.Lerp(transform.position, lastPosition, Time.deltaTime * 5);
+            transform.rotation = Quaternion.Lerp(transform.rotation, lastRotation, Time.deltaTime * 5);
+        }
     }
     
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if (stream.IsWriting)
-            stream.SendNext(transform.position); // Send others our data.
+        {
+            // Send data to other players.
+            stream.SendNext(transform.position);
+            stream.SendNext(transform.rotation);
+        }
         else 
-            latestPos = (Vector3) stream.ReceiveNext(); // Receive data from others.
+        {
+            // Get data from other players.
+            lastPosition = (Vector3) stream.ReceiveNext();
+            lastRotation = (Quaternion) stream.ReceiveNext();
+        }
     }
 }
