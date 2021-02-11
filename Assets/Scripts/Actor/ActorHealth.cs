@@ -11,7 +11,7 @@ public class ActorHealth : MonoBehaviour
     [Tooltip("Make character invincible")] 
     public bool invincible;
     [Tooltip("The text field displaying the score")]
-    public TextMeshProUGUI uiText;
+    public GameObject GUI;
     public UnityAction onDie;
     public UnityAction onRevive;
     public float currentHealth { get; set; }
@@ -38,7 +38,7 @@ public class ActorHealth : MonoBehaviour
         if (invincible)
         {
             // don't kill, but incr score
-            IncreaseScore();
+            IncreaseScore(damageSource);
             return;
         }
         currentHealth -= damage;
@@ -54,7 +54,7 @@ public class ActorHealth : MonoBehaviour
             // Set reviverPolling to zero, to ensure player will be revived in ReviverTimer interval via Update method.
             reviverPolling = 0f;
           	isDead = true;
-            IncreaseScore();
+            IncreaseScore(damageSource);
             if (onDie != null) onDie.Invoke();
         }
     }
@@ -67,13 +67,15 @@ public class ActorHealth : MonoBehaviour
         if (onRevive != null) onRevive.Invoke();
     }
 
-    void IncreaseScore()
+    void IncreaseScore(GameObject damageSource)
     {
         score++;
-        Debug.Log("score " + score);
-        uiText.text = "kills: " + score;
-        Debug.Log("uitext " + uiText);
-        Debug.Log("text " + uiText.text);
+        // a shameful way of getting score Text GUI, to avoid rebuilding bunch of classes
+        TextMeshProUGUI uiText = damageSource.GetComponentInChildren<TextMeshProUGUI>();
+        if (uiText != null)
+        {
+            uiText.text = "kills: " + score;
+        }
     }
 }
 
