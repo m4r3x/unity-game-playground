@@ -54,27 +54,10 @@ public class GameMultiplayerLauncher : MonoBehaviourPunCallbacks
         PhotonNetwork.JoinOrCreateRoom(RunForestRoomName, roomOptions, TypedLobby.Default);
     }
 
-    public override void OnJoinedLobby()
-    {
-        Debug.Log("User joined lobby: " + PhotonNetwork.NickName);
-    }
-    
-    public override void OnRoomListUpdate(List<RoomInfo> roomList)
-    {
-        Debug.Log("We have received the Room list");
-        Debug.Log(roomList);
-    }
-
     public override void OnJoinedRoom()
     {
-        Debug.Log("OnJoinedRoom()");
         PhotonNetwork.NickName = "Player #" + Random.Range(0.0f, 100.0f);
-        Debug.Log("Nickname: " + PhotonNetwork.NickName);
+        Debug.Log("User joined Room with a nickname: " + PhotonNetwork.NickName);
         PhotonNetwork.LoadLevel("MainScene");
-    }
-    
-    public override void OnCreatedRoom()
-    {
-        Debug.Log("OnCreatedRoom()");
     }
 }

@@ -14,13 +14,9 @@ public class PlayerSync : MonoBehaviourPun, IPunObservable
     
     void Start()
     {
-        if (photonView.IsMine)
+        // Player is Remote, deactivate the scripts and object that should only be enabled for the local player
+        if (!photonView.IsMine)
         {
-            // Player is local
-        }
-        else
-        {
-            // Player is Remote, deactivate the scripts and object that should only be enabled for the local player
             for (int i = 0; i < localScripts.Length; i++)
             {
                 localScripts[i].enabled = false;
@@ -35,23 +31,15 @@ public class PlayerSync : MonoBehaviourPun, IPunObservable
     void Update()
     {
         if (!photonView.IsMine)
-        {
-            // Update remote player state
             transform.position = Vector3.Lerp(transform.position, latestPos, Time.deltaTime * 5);
-        }
     }
     
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
+        
         if (stream.IsWriting)
-        {
-            // Send others our data.
-            stream.SendNext(transform.position);
-        }
-        else
-        {
-            // Receive data from others.
-            latestPos = (Vector3) stream.ReceiveNext();
-        }
+            stream.SendNext(transform.position); // Send others our data.
+        else 
+            latestPos = (Vector3) stream.ReceiveNext(); // Receive data from others.
     }
 }

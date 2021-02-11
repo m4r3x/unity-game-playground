@@ -9,7 +9,6 @@ public class GameFramerateCounter : MonoBehaviour
     public float pollingTime = 1f;
     [Tooltip("The text field displaying the framerate")]
     public TextMeshProUGUI uiText;
-
     float accDelta = 0f;
     int accFrames = 0;
 

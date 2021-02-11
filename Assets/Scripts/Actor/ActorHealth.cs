@@ -11,7 +11,6 @@ public class ActorHealth : MonoBehaviour
     public UnityAction onRevive;
     public float currentHealth { get; set; }
     public bool invincible { get; set; }
-	
 	// Number of seconds after which Actor is revived after death. 
     const float ReviveInterval = 5f;
     float reviverPolling = 0f;
